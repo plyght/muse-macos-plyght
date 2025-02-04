@@ -31,23 +31,6 @@ struct MuseApp: App {
             .transition(.opacity)
             .animation(.easeIn(duration: 0.2), value: self.musicManager.authorization.status)
             .animation(.easeIn(duration: 0.2), value: self.musicManager.subscription.needsOffer)
-            .onAppear {
-                NotificationCenter.default.addObserver(forName: .AVPlayerItemFailedToPlayToEndTime, object: nil, queue: .main) { notification in
-                    if let error = notification.userInfo?[AVPlayerItemFailedToPlayToEndTimeErrorKey] as? Error {
-                        print("Error: \(error.localizedDescription)")
-                    }
-                }
-                
-                NotificationCenter.default.addObserver(forName: .AVPlayerItemNewErrorLogEntry, object: nil, queue: .main) { notification in
-                    if let error = notification.userInfo?[AVPlayerItemNewErrorLogEntryErrorKey] as? Error {
-                        print("Error: \(error.localizedDescription)")
-                    }
-                }
-                
-                NotificationCenter.default.addObserver(forName: .AVPlayerItemPlaybackStalled, object: nil, queue: .main) { notification in
-                    print("Playback stalled")
-                }
-            }
         }
         .environmentObject(self.musicManager)
         .environmentObject(self.musicCatalog)
