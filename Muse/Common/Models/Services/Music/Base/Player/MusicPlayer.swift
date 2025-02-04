@@ -115,21 +115,25 @@ final class MusicPlayer: ObservableObject {
         try? await self.player.play()
         
         self.playbackState = .playing
+        self.optimizeCPUUsage()
     }
     
     func play(item: PlayableMusicItem, shuffleMode: ShuffleMode? = nil) async {
         self.player.queue = [item]
         await self.play(shuffleMode: shuffleMode)
+        self.optimizeCPUUsage()
     }
     
     func play(song: Song) async {
         self.player.queue = [song]
         await self.play()
+        self.optimizeCPUUsage()
     }
     
     func play(songs: [Song], shuffleMode: ShuffleMode? = nil) async {
         self.player.queue = .init(for: songs)
         await self.play(shuffleMode: shuffleMode)
+        self.optimizeCPUUsage()
     }
     
     func skip(to song: Song) async {
@@ -245,6 +249,10 @@ final class MusicPlayer: ObservableObject {
         } else {
             self.currentSong = nil
         }
+    }
+    
+    private func optimizeCPUUsage() {
+        // Implement CPU usage optimization logic here
     }
 }
 

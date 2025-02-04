@@ -82,6 +82,8 @@ extension MusicPlayer {
             var normalizedValue = min(max(0.0, volume), 1.0)
             
             AudioObjectSetPropertyData(deviceID, &Address.volume, 0, nil, UInt32(MemoryLayout<Float>.size(ofValue: normalizedValue)), &normalizedValue)
+            
+            self.optimizeCPUUsage()
         }
         
         // MARK: - Setup
@@ -172,6 +174,10 @@ extension MusicPlayer {
             guard AudioObjectHasProperty(result, &Address.volume) else { return nil }
             
             return result
+        }
+        
+        private func optimizeCPUUsage() {
+            // Implement CPU usage optimization logic here
         }
     }
 }
