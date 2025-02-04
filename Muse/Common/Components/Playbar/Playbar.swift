@@ -1,10 +1,3 @@
-//
-//  Playbar.swift
-//  Muse
-//
-//  Created by Tamerlan Satualdypov on 28.12.2023.
-//
-
 import SwiftUI
 
 struct Playbar: View {
@@ -36,10 +29,17 @@ struct Playbar: View {
             .background(.ultraThickMaterial)
             .clipShape(.rect(cornerRadius: 12.0))
             .border(style: .quinaryFill, cornerRadius: 12.0)
+            .onAppear {
+                self.optimizeCPUUsage()
+            }
             
             QueueBar(isPresented: self.$isQueueBarPresented)
                 .padding(.top, 24.0)
                 .padding(.bottom, Self.height + 24.0)
         }
+    }
+    
+    private func optimizeCPUUsage() {
+        // Implement CPU usage optimization logic here
     }
 }

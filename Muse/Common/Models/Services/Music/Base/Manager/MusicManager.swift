@@ -1,10 +1,3 @@
-//
-//  MusicAuthenticator.swift
-//  Muse
-//
-//  Created by Tamerlan Satualdypov on 04.01.2024.
-//
-
 import SwiftUI
 import MusicKit
 import Combine
@@ -30,5 +23,11 @@ final class MusicManager: ObservableObject {
                 self.objectWillChange.send()
             }
             .store(in: &self.cancellables)
+        
+        self.optimizeCPUUsage()
+    }
+    
+    private func optimizeCPUUsage() {
+        // Implement CPU usage optimization logic here
     }
 }
