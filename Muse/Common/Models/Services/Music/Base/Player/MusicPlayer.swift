@@ -1,10 +1,3 @@
-//
-//  MusicPlayer.swift
-//  Muse
-//
-//  Created by Tamerlan Satualdypov on 19.02.2024.
-//
-
 import Foundation
 import Combine
 import MusicKit
@@ -98,6 +91,13 @@ final class MusicPlayer: ObservableObject {
             .sink { _ in
                 self.updateQueue()
             }
+    }
+    
+    deinit {
+        self.volumeCancellable?.cancel()
+        self.playbackTimeCancellable?.cancel()
+        self.playerStateCancellable?.cancel()
+        self.playerQueueCancellable?.cancel()
     }
     
     func play(shuffleMode: ShuffleMode? = nil) async {
