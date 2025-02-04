@@ -1,10 +1,3 @@
-//
-//  MusicPlayerAudio.swift
-//  Muse
-//
-//  Created by Tamerlan Satualdypov on 22.02.2024.
-//
-
 import CoreAudio
 import AudioToolbox
 import Cocoa

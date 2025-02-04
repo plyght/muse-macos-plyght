@@ -1,10 +1,3 @@
-//
-//  MusicArtworkImage.swift
-//  Muse
-//
-//  Created by Tamerlan Satualdypov on 08.01.2024.
-//
-
 import SwiftUI
 import SDWebImageSwiftUI
 import MusicKit
@@ -59,6 +52,10 @@ struct MusicArtworkImage: View {
                     self.isFailed = true
                 }
                 .frame(width: self.width, height: self.height)
+                .onDisappear {
+                    SDImageCache.shared.removeImage(forKey: artwork.url(width: Int(self.width), height: Int(self.height)).absoluteString)
+                    SDWebImageManager.shared.cancelAll()
+                }
         }
     }
 }
