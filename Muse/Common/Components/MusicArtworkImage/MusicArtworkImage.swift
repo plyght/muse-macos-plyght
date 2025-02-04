@@ -43,19 +43,23 @@ struct MusicArtworkImage: View {
         if self.isFailed {
             ArtworkImage(artwork, width: self.width, height: self.height)
         } else {
-            WebImage(url: artwork.url(width: Int(self.width), height: Int(self.height)))
-                .resizable()
-                .placeholder {
-                    self.placeholder
-                }
-                .onFailure { _ in
-                    self.isFailed = true
-                }
-                .frame(width: self.width, height: self.height)
-                .onDisappear {
-                    SDImageCache.shared.removeImage(forKey: artwork.url(width: Int(self.width), height: Int(self.height)).absoluteString)
-                    SDWebImageManager.shared.cancelAll()
-                }
+            if let url = artwork.url(width: Int(self.width), height: Int(self.height)) {
+                WebImage(url: url)
+                    .resizable()
+                    .placeholder {
+                        self.placeholder
+                    }
+                    .onFailure { _ in
+                        self.isFailed = true
+                    }
+                    .frame(width: self.width, height: self.height)
+                    .onDisappear {
+                        SDImageCache.shared.removeImage(forKey: url.absoluteString)
+                        SDWebImageManager.shared.cancelAll()
+                    }
+            } else {
+                self.placeholder
+            }
         }
     }
 }
